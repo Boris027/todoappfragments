@@ -13,12 +13,23 @@
         <action
             android:id="@+id/action_listTaskView_to_addtask"
             app:destination="@id/addtask" />
+        <action
+            android:id="@+id/action_listTaskView_to_updatetask"
+            app:destination="@id/updatetask" />
     </fragment>
     <fragment
         android:id="@+id/addtask"
-        android:name="com.example.todoappremaster.addtask"
+        android:name="com.example.todoappremaster.ui.addtask"
         android:label="fragment_addtask"
         tools:layout="@layout/fragment_addtask" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/updatetask"
+        android:name="com.example.todoappremaster.ui.updatetask"
+        android:label="updatetask" >
         <argument
             android:name="id"
             app:argType="integer" />

@@ -33,7 +33,14 @@ class AdapterTaskInMemory private constructor():Repository{
     }
 
     override fun update(id: Int, tarea: Task): Task {
-        TODO("Not yet implemented")
+        val taskIndex = _tasklist.indexOfFirst { it.id == id }
+
+        if (taskIndex != -1) {
+            _tasklist[taskIndex] = tarea
+            return tarea
+        }
+
+        return tarea
     }
 
 

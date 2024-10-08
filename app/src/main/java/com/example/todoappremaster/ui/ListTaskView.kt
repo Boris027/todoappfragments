@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoappremaster.R
-import com.example.todoappremaster.addtask
 import com.example.todoappremaster.data.AdapterTaskInMemory
+import com.example.todoappremaster.data.Task
 import com.example.todoappremaster.databinding.FragmentListTaskViewBinding
 
 
@@ -28,7 +27,7 @@ class ListTaskView : Fragment() {
         binding=FragmentListTaskViewBinding.inflate(inflater,container,false)
 
         val array=repository.getAll()
-        val adapter= ListTaskRecyclerAdapter(array,::iravistadetail)
+        val adapter= ListTaskRecyclerAdapter(array,::iravistadetail,::changeswitchstate)
         binding.recyclerview.layoutManager=LinearLayoutManager(this.context)
         binding.recyclerview.adapter=adapter
 
@@ -43,7 +42,16 @@ class ListTaskView : Fragment() {
     }
 
     fun iravistadetail(id:Int){
-        Toast.makeText(this.context, id.toString(), Toast.LENGTH_SHORT).show()
+        val nav=findNavController()
+        val bundle:Bundle =Bundle()
+        bundle.putInt("id",id)
+        nav.navigate(R.id.action_listTaskView_to_updatetask,bundle)
+    }
+
+    fun changeswitchstate(id:Int,taskxd:Task){
+        taskxd.completed=!taskxd.completed
+        //Toast.makeText(requireContext(), taskxd.completed.toString(), Toast.LENGTH_SHORT).show()
+        repository.update(id,taskxd)
     }
 
 
