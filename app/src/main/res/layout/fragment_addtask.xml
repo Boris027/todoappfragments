@@ -48,7 +48,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switchcompleted"
+            android:id="@+id/switchcompletado"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:checked="true"

@@ -34,7 +34,8 @@ class ListTaskView : Fragment() {
 
 
         binding.buttonadd.setOnClickListener{
-            findNavController().navigate(R.id.action_listTaskView_to_addtask)
+            val nav=findNavController()
+            nav.navigate(R.id.action_listTaskView_to_addtask)
         }
 
         // Inflate the layout for this fragment

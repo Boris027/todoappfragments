@@ -18,6 +18,12 @@ class AdapterTaskInMemory private constructor():Repository{
         Task(id = 3, title = "Cenar", body = "tengo que cenar", completed = false)
     )
 
+    override fun create(task: Task): Task {
+        task.id=if (_tasklist.size==0) 1 else _tasklist.last().id+1
+        _tasklist.add(task)
+        return task
+    }
+
     override fun getAll(): List<Task> {
         return _tasklist.toList()
     }
@@ -29,6 +35,8 @@ class AdapterTaskInMemory private constructor():Repository{
     override fun update(id: Int, tarea: Task): Task {
         TODO("Not yet implemented")
     }
+
+
 
 
 
