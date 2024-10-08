@@ -9,13 +9,16 @@ import com.example.todoappremaster.R
 import com.example.todoappremaster.data.Task
 import com.example.todoappremaster.databinding.TaskcardviewBinding
 
-class ListTaskRecyclerAdapter(private val lista:List<Task>):RecyclerView.Adapter<ListTaskRecyclerAdapter.ViewHolder>() {
+class ListTaskRecyclerAdapter(private val lista:List<Task>, val iravistadetail:(id:Int)->Unit):RecyclerView.Adapter<ListTaskRecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding:TaskcardviewBinding):RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding:TaskcardviewBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(task: Task){
             binding.title.text=task.title
             binding.body.text=task.body
             binding.switchcompleted.isChecked=task.completed
+            binding.root.setOnClickListener{
+                iravistadetail(task.id)
+            }
         }
     }
 

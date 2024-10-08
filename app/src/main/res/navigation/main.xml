@@ -9,5 +9,18 @@
         android:id="@+id/listTaskView"
         android:name="com.example.todoappremaster.ui.ListTaskView"
         android:label="fragment_list_task_view"
-        tools:layout="@layout/fragment_list_task_view" />
+        tools:layout="@layout/fragment_list_task_view" >
+        <action
+            android:id="@+id/action_listTaskView_to_addtask"
+            app:destination="@id/addtask" />
+    </fragment>
+    <fragment
+        android:id="@+id/addtask"
+        android:name="com.example.todoappremaster.addtask"
+        android:label="fragment_addtask"
+        tools:layout="@layout/fragment_addtask" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

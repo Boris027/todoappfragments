@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".addtask">
+
+    <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="10dp"
+            app:iconPadding="0dp"
+            app:icon="@drawable/reply_24px"
+            app:iconGravity="textStart"
+            app:cornerRadius="30dp"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_height="wrap_content" android:layout_width="match_parent" android:hint="Title">
+
+            <com.google.android.material.textfield.TextInputEditText
+             android:id="@+id/title"
+             android:inputType="text"
+             android:layout_height="wrap_content" android:layout_width="match_parent"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_height="wrap_content" android:layout_width="match_parent" android:hint="Body">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/body"
+                android:inputType="text"
+                android:layout_height="wrap_content" android:layout_width="match_parent"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchcompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:text="Completed"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonsave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="10dp"
+            app:iconPadding="0dp"
+            app:icon="@drawable/add_24px"
+            app:iconGravity="textStart"
+            app:cornerRadius="30dp"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>
