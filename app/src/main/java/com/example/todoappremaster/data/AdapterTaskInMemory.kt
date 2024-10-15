@@ -1,50 +1,58 @@
 package com.example.todoappremaster.data
 
-class AdapterTaskInMemory private constructor():Repository{
+import com.example.todoappremaster.data.source.local.LocalTask
+import com.example.todoappremaster.data.source.local.LocalTaskDataSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-    companion object{
-        var instancia:AdapterTaskInMemory?=null
-        fun getInstace():AdapterTaskInMemory{
-            if(instancia==null){
-                instancia= AdapterTaskInMemory()
-            }
-            return instancia!!
-        }
-    }
+class AdapterTaskInMemory @Inject constructor(
+    private val localTaskDataSource:LocalTaskDataSource
+):Repository{
 
-    private var _tasklist:MutableList<Task> = mutableListOf<Task>(
-        Task(id = 1, title = "Titulo1", body = "Body1", completed = false),
-        Task(id = 2, title = "Comer", body = "tengo que comer", completed = true),
-        Task(id = 3, title = "Cenar", body = "tengo que cenar", completed = false)
-    )
 
-    override fun create(task: Task): Task {
-        task.id=if (_tasklist.size==0) 1 else _tasklist.last().id+1
-        _tasklist.add(task)
+
+
+
+    suspend override fun create(task: Task): Task {
+        val taskxd=localTaskDataSource.getAll()
+        task.id=if (taskxd.size==0) 1 else taskxd.last().id+1
+
+
+        localTaskDataSource.create(
+            LocalTask(id = task.id, title = task.title, body = task.body, completed = task.completed))
+
         return task
     }
 
-    override fun getAll(): List<Task> {
-        return _tasklist.toList()
+    suspend override fun getAll(): List<Task> {
+        return localTaskDataSource.getAll().toExternal()
     }
 
-    override fun getOne(id: Int): Task {
-        return _tasklist.find { c->c.id==id }!!
+    suspend override fun getOne(id: Int): Task {
+        return (localTaskDataSource.getOne(id)).toExternal()
     }
 
-    override fun update(id: Int, tarea: Task): Task {
-        val taskIndex = _tasklist.indexOfFirst { it.id == id }
+    suspend override fun update(id: Int, tarea: Task): Task {
 
-        if (taskIndex != -1) {
-            _tasklist[taskIndex] = tarea
-            return tarea
-        }
 
+        localTaskDataSource.update(id,tarea.toLocalTask())
         return tarea
     }
 
-
-
+    override suspend fun getStream(): Flow<List<Task>> {
+        return localTaskDataSource.getStream().map { localTasks: List<LocalTask> ->
+            localTasks.map { localTask ->
+                Task(
+                    id = localTask.id,
+                    title = localTask.title,
+                    body = localTask.body,
+                    completed = localTask.completed
+                )
+            }
+        }
+    }
 
 
 }
