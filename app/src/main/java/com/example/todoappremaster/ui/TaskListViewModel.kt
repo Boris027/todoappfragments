@@ -24,11 +24,24 @@ class TaskListViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getStream().collect{
                 tasks -> if (tasks.isEmpty()){
-                    _uiState.value=TaskListUiState.Loading
+                    _uiState.value=TaskListUiState.Error("No hay tareas disponibles")
                 }else{
                     _uiState.value=TaskListUiState.Success(tasks)
                 }
 
+            }
+        }
+    }
+
+
+     fun updateTaskCompletionStatus(id: Int) {
+        viewModelScope.launch {
+            try {
+                val taskToUpdate = repository.getOne(id) // Asumiendo que tienes este método en tu repositorio
+                taskToUpdate.completed=!taskToUpdate.completed
+                repository.update(id, taskToUpdate)
+            } catch (e: Exception) {
+                _uiState.value = TaskListUiState.Error("Error al actualizar la tarea") // Maneja el error
             }
         }
     }
@@ -40,3 +53,4 @@ sealed class TaskListUiState {
     class Success(val tasks:List<Task>):TaskListUiState()
     class Error(val message:String):TaskListUiState()
 }
+

@@ -64,7 +64,7 @@ class ListTaskView : Fragment() {
                         }
                         is TaskListUiState.Success -> {
                             viewLifecycleOwner.lifecycleScope.launch {
-                                val array=repository.getAll()
+                                val array=uiState.tasks
                                 val adapter= ListTaskRecyclerAdapter(array,::iravistadetail,::changeswitchstate)
                                 binding.recyclerview.layoutManager=LinearLayoutManager(context)
                                 binding.recyclerview.adapter=adapter
@@ -88,11 +88,8 @@ class ListTaskView : Fragment() {
         nav.navigate(R.id.action_listTaskView_to_updatetask,bundle)
     }
 
-    fun changeswitchstate(id:Int,taskxd:Task){
-        taskxd.completed=!taskxd.completed
-        //Toast.makeText(requireContext(), taskxd.completed.toString(), Toast.LENGTH_SHORT).show()
-        viewLifecycleOwner.lifecycleScope.launch {
-        repository.update(id,taskxd)}
+    fun changeswitchstate(id:Int){
+        viewModel.updateTaskCompletionStatus(id)
     }
 
 
