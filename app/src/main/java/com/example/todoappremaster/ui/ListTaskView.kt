@@ -28,7 +28,6 @@ class ListTaskView : Fragment() {
 
     private val viewModel:TaskListViewModel by viewModels()
     private lateinit var binding:FragmentListTaskViewBinding
-    @Inject lateinit var repository: Repository
 
 
     override fun onCreateView(
